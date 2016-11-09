@@ -10,11 +10,11 @@ public class Question {
         mAnswerTrue = answerTrue;
     }
 
-    public int getmTextResId() {
+    public int getTextResId() {
         return mTextResId;
     }
 
-    public void setmTextResId(int mTextResId) {
+    public void setTextResId(int mTextResId) {
         this.mTextResId = mTextResId;
     }
 
