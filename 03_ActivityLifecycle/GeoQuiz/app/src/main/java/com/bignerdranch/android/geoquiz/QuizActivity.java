@@ -1,5 +1,6 @@
 package com.bignerdranch.android.geoquiz;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import static com.bignerdranch.android.geoquiz.R.id.cheat_button;
+
 
 public class QuizActivity extends AppCompatActivity {
     private static final String TAG = "QuizActivity";
@@ -18,7 +21,9 @@ public class QuizActivity extends AppCompatActivity {
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
+    private Button mCheatButton;
     private TextView mQuestionTextView;
+    Intent intent;
 
     private Question[] mQuestionBank = new Question[] {
             new Question(R.string.question_oceans, true),
@@ -83,6 +88,14 @@ public class QuizActivity extends AppCompatActivity {
             }
         });
 
+        mCheatButton = (Button) findViewById(cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startCheatActivity();
+            }
+        });
+
         if (savedInstanceState != null) {
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX, 0);
         }
@@ -144,5 +157,11 @@ public class QuizActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void startCheatActivity(){
+        intent = new Intent(this, CheatActivity.class);
+        intent.putExtra("answer", mQuestionBank[mCurrentIndex].isAnswerTrue());
+        startActivity(intent);
     }
 }
